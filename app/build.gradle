@@ -1,0 +1,34 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.tomclaw.android.krop.demo"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+    implementation "com.google.android.material:material:$androidXVersion"
+
+    implementation 'me.jfenn.ColorPickerDialog:base:0.2.1'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    implementation project(path: ':krop')
+}
+repositories {
+    mavenCentral()
+    google()
+}
