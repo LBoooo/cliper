@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewTreeObserver
@@ -26,6 +27,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.avito.android.krop.KropView
 import com.avito.android.krop.OverlayView
+import com.avito.android.krop.SHAPE_OVAL
+import com.avito.android.krop.SHAPE_RECT
 import com.avito.android.krop.util.ScaleAfterRotationStyle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -147,10 +150,11 @@ class MainActivity : AppCompatActivity() {
         return bitmap
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
-        outState?.putParcelable(KEY_URI, uri)
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        outState.putParcelable(KEY_URI, uri)
     }
+
 
     private fun setInputOverlayColor(color: Int) {
         val hexColor = colorToHex(color)
@@ -231,8 +235,8 @@ class MainActivity : AppCompatActivity() {
             val overlayColor = Color.parseColor(inputOverlayColor.text.toString())
 
             when(overlayShape.checkedRadioButtonId) {
-                R.id.shape_oval -> kropView.applyOverlayShape(0)
-                R.id.shape_rect -> kropView.applyOverlayShape(1)
+                R.id.shape_oval -> kropView.applyOverlayShape(SHAPE_OVAL)
+                R.id.shape_rect -> kropView.applyOverlayShape(SHAPE_RECT)
                 else -> kropView.applyOverlay(CustomOverlay(this))
             }
             kropView.apply {
