@@ -263,7 +263,7 @@ class ZoomableImageView : ImageView, ViewportUpdateListener {
         val superState = super.onSaveInstanceState()
         imgMatrix.getValues(matrix)
         return SavedState(
-                superState,
+                superState!!,
                 currentZoom,
                 rotationAngle,
                 maxZoom,
@@ -1422,9 +1422,9 @@ class ZoomableImageView : ImageView, ViewportUpdateListener {
             rotationAngle = source.readFloat()
             maxZoom = source.readFloat()
             minZoom = source.readFloat()
-            matrix = source.createFloatArray()
-            prevMatchViewSize = source.readParcelable(SizeF::class.java.classLoader)
-            prevViewSize = source.readParcelable(SizeF::class.java.classLoader)
+            matrix = source.createFloatArray()!!
+            prevMatchViewSize = source.readParcelable(SizeF::class.java.classLoader)!!
+            prevViewSize = source.readParcelable(SizeF::class.java.classLoader)!!
             imageRenderedAtLeastOnce = (source.readInt() == 1)
         }
 

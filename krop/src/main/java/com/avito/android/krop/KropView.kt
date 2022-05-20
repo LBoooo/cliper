@@ -197,7 +197,7 @@ class KropView(context: Context, attrs: AttributeSet) :
     override fun onSaveInstanceState(): Parcelable {
         val superState = super.onSaveInstanceState()
         return SavedState(
-                superState = superState,
+                superState = superState!!,
                 offset = offset,
                 aspectX = aspectX,
                 aspectY = aspectY,
@@ -309,7 +309,7 @@ class KropView(context: Context, attrs: AttributeSet) :
             aspectY = source.readInt()
             overlayColor = source.readInt()
             overlayShape = source.readInt()
-            imageViewState = source.readParcelable(SavedState::class.java.classLoader)
+            imageViewState = source.readParcelable(SavedState::class.java.classLoader)!!
         }
 
         companion object CREATOR : Parcelable.Creator<SavedState> {

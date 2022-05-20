@@ -16,8 +16,8 @@ data class BitmapTransformation(
 
     constructor(parcel: Parcel) : this(
             Matrix().apply { setValues(parcel.createFloatArray()) },
-            parcel.readParcelable(Size::class.java.classLoader),
-            parcel.readParcelable(Size::class.java.classLoader)
+            parcel.readParcelable(Size::class.java.classLoader)!!,
+            parcel.readParcelable(Size::class.java.classLoader)!!
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -65,7 +65,7 @@ fun Bitmap.transformWith(transformation: BitmapTransformation): Bitmap {
     val (width, height) = with(transformation.outputSize) { width to height }
     val result = Bitmap.createBitmap(width, height, config)
     val canvas = Canvas(result)
-    canvas.matrix = transformation.transformationMatrix
+    canvas.setMatrix(transformation.transformationMatrix)
     canvas.drawBitmap(this, 0f, 0f, null)
     return result
 }
